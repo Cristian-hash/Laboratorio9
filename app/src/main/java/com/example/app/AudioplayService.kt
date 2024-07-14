@@ -7,14 +7,14 @@ import android.os.IBinder
 
 class AudioplayService: Service() {
     //iniciar el audio
-    private lateinit val mediaPlayer:MediaPlayer
+    private lateinit var mediaPlayer:MediaPlayer
 
 
     companion object{
 
         const val FILENAME="FILENAME"
         const val COMMAND="COMMAND"
-        const val PLAY="PLAY"
+        const val PLAY ="PLAY"
         const val STOP="STOP"
     }
 
@@ -22,15 +22,14 @@ class AudioplayService: Service() {
         TODO("Not yet implemented")
     }
 
-
     override fun onStartCommand(intent: Intent,flags:Int,startId:Int):Int{
         val filename = intent.getStringExtra(FILENAME)
         val command = intent.getStringExtra(COMMAND)
 
         if(command == PLAY){
-
+            audioPlay(filename)
         }else if(command == STOP){
-
+            audioStop()
         }
 
         return START_STICKY
@@ -53,5 +52,11 @@ class AudioplayService: Service() {
                 mediaPlayer.isLooping=false
                 mediaPlayer.start()
             }
+    }
+
+    private fun audioStop(){
+        if(mediaPlayer!=null){
+            mediaPlayer.stop()
+        }
     }
 }
